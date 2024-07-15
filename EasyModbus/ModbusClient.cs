@@ -296,6 +296,44 @@ namespace EasyModbus
             return ConvertRegistersToInt(swappedRegisters);
         }
 
+        /// <summary>Converts two ModbusRegisters to 32 Bit unsigned Integer value</summary>
+        /// <param name="registers">Two Register values received from Modbus</param>
+        /// <returns>Connected 32 Bit unsigned Integer value</returns>
+        public static uint ConvertRegistersToUInt(int[] registers)
+        {
+            if (registers.Length != 2)
+            {
+                throw new ArgumentException("Input Array length invalid - Array langth must be '2'");
+            }
+
+            var highRegister = registers[1];
+            var lowRegister = registers[0];
+            var highRegisterBytes = BitConverter.GetBytes(highRegister);
+            var lowRegisterBytes = BitConverter.GetBytes(lowRegister);
+            byte[] doubleBytes =
+            {
+                lowRegisterBytes[0],
+                lowRegisterBytes[1],
+                highRegisterBytes[0],
+                highRegisterBytes[1]
+            };
+            return BitConverter.ToUInt32(doubleBytes, 0);
+        }
+
+        /// <summary>
+        /// Converts two ModbusRegisters to 32 Bit unsigned Integer Value - Registers can be swapped
+        /// </summary>
+        /// <param name="registers">Two Register values received from Modbus</param>
+        /// <param name="registerOrder">Desired Word Order (Low Register first or High Register first</param>
+        /// <returns>Connecteds 32 Bit unsigned Integer value</returns>
+        public static uint ConvertRegistersToUInt(int[] registers, RegisterOrder registerOrder)
+        {
+            int[] swappedRegisters = { registers[0], registers[1] };
+            if (registerOrder == RegisterOrder.HighLow)
+                swappedRegisters = new int[] { registers[1], registers[0] };
+            return ConvertRegistersToUInt(swappedRegisters);
+        }
+
         /// <summary>
         /// Convert four 16 Bit Registers to 64 Bit Integer value Register Order "LowHigh": Reg0: Low Word.....Reg3: High Word, "HighLow": Reg0: High Word.....Reg3: Low Word
         /// </summary>
@@ -434,6 +472,26 @@ namespace EasyModbus
             return returnValue;
         }
 
+        /// <summary>Converts 16 Bit Value to two ModbusRegister</summary>
+        /// <param name="uShortValue">Ushort value which has to be converted into one register</param>
+        /// <returns>Register values</returns>
+        public static int[] ConvertUShortToRegisters(ushort uShortValue)
+        {
+            var doubleBytes = BitConverter.GetBytes(uShortValue);
+            byte[] registerBytes =
+            {
+                doubleBytes[0],
+                doubleBytes[1],
+                0,
+                0
+            };
+            int[] returnValue =
+            {
+                BitConverter.ToInt32(registerBytes, 0)
+            };
+            return returnValue;
+        }
+
         /// <summary>
         /// Converts 32 Bit Value to two ModbusRegisters
         /// </summary>
@@ -477,6 +535,49 @@ namespace EasyModbus
             int[] returnValue = registerValues;
             if (registerOrder == RegisterOrder.HighLow)
                 returnValue = new Int32[] { registerValues[1], registerValues[0] };
+            return returnValue;
+        }
+
+        /// <summary>Converts 32 Bit Value to two ModbusRegisters</summary>
+        /// <param name="uIntValue">Uint value which has to be converted into two registers</param>
+        /// <returns>Register values</returns>
+        public static int[] ConvertUIntToRegisters(uint uIntValue)
+        {
+            var doubleBytes = BitConverter.GetBytes(uIntValue);
+            byte[] highRegisterBytes =
+            {
+                doubleBytes[2],
+                doubleBytes[3],
+                0,
+                0
+            };
+            byte[] lowRegisterBytes =
+            {
+                doubleBytes[0],
+                doubleBytes[1],
+                0,
+                0
+            };
+            int[] returnValue =
+            {
+                BitConverter.ToInt32(lowRegisterBytes, 0),
+                BitConverter.ToInt32(highRegisterBytes, 0)
+            };
+            return returnValue;
+        }
+
+        /// <summary>
+        /// Converts 32 Bit Value to two ModbusRegisters Registers - Registers can be swapped
+        /// </summary>
+        /// <param name="intValue">Double value which has to be converted into two registers</param>
+        /// <param name="registerOrder">Desired Word Order (Low Register first or High Register first</param>
+        /// <returns>Register values</returns>
+        public static int[] ConvertUIntToRegisters(uint intValue, RegisterOrder registerOrder)
+        {
+            var registerValues = ConvertUIntToRegisters(intValue);
+            var returnValue = registerValues;
+            if (registerOrder == RegisterOrder.HighLow)
+                returnValue = new int[] { registerValues[1], registerValues[0] };
             return returnValue;
         }
 
