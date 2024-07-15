@@ -262,6 +262,24 @@ namespace EasyModbus
         }
 
         /// <summary>
+        /// Converts a modbus register to 16 Bit Short value
+        /// </summary>
+        /// <param name="registers">Two Register values received from Modbus</param>
+        /// <returns>Connected 32 Bit Integer value</returns>
+        public static ushort ConvertRegistersToUShort(int[] registers)
+        {
+            if (registers.Length != 1)
+                throw new ArgumentException("Input Array length invalid - Array langth must be '2'");
+            int register = registers[1];
+            byte[] registerBytes = BitConverter.GetBytes(register);
+            byte[] doubleBytes = {
+                registerBytes[0],
+                registerBytes[1],
+            };
+            return BitConverter.ToUInt16(doubleBytes, 0);
+        }
+
+        /// <summary>
         /// Converts two ModbusRegisters to 32 Bit Integer value
         /// </summary>
         /// <param name="registers">Two Register values received from Modbus</param>
