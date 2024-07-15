@@ -90,18 +90,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\EasyModbus\Exceptions\Exceptions.cs">
-      <Link>Exceptions\Exceptions.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyModbus\ModbusClient.cs">
-      <Link>ModbusClient.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyModbus\ModbusServer.cs">
-      <Link>ModbusServer.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyModbus\StoreLogData.cs">
-      <Link>StoreLogData.cs</Link>
-    </Compile>
     <Compile Include="Info.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +154,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="oie_ITkzMZD7tnyn.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EasyModbus\EasyModbus.csproj">
+      <Project>{d0f1c86c-169f-4dcb-b6ba-b9fd3ec3ba0b}</Project>
+      <Name>EasyModbus</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
