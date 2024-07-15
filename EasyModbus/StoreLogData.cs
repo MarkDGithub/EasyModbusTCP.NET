@@ -22,10 +22,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace EasyModbus
 {
     /// <summary>
@@ -33,9 +29,9 @@ namespace EasyModbus
     /// </summary>
     public sealed class StoreLogData
     {
-    	private String filename = null;
+    	private string filename = null;
         private static volatile StoreLogData instance;
-        private static object syncObject = new Object();
+        private static object syncObject = new object();
 
         /// <summary>
         /// Private constructor; Ensures the access of the class only via "instance"
@@ -69,13 +65,13 @@ namespace EasyModbus
         /// Store message in Log-File
         /// </summary>
         /// <param name="message">Message to append to the Log-File</param>
-        public void Store(String message)
+        public void Store(string message)
         {
             if (this.filename == null)
                 return;
 
-            using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(Filename, true))
+            using (StreamWriter file =
+                new StreamWriter(Filename, true))
             {
                 file.WriteLine(message);
             }
@@ -86,12 +82,12 @@ namespace EasyModbus
         /// </summary>
         /// <param name="message">Message to append to the Log-File</param>
         /// <param name="timestamp">Timestamp to add to the same Row</param>
-        public void Store(String message, DateTime timestamp)
+        public void Store(string message, DateTime timestamp)
         {
             try
             {
-                using (System.IO.StreamWriter file =
-                    new System.IO.StreamWriter(Filename, true))
+                using (StreamWriter file =
+                    new StreamWriter(Filename, true))
                 {
                     file.WriteLine(timestamp.ToString("dd.MM.yyyy H:mm:ss.ff ") + message);
                 }
