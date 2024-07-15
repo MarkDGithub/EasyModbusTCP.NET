@@ -233,7 +233,7 @@ namespace EasyModbus
         public static float ConvertRegistersToFloat(int[] registers)
         {
             if (registers.Length != 2)
-                throw new ArgumentException("Input Array length invalid - Array langth must be '2'");
+                throw new ArgumentException("Input Array length invalid - Array length must be '2'");
             int highRegister = registers[1];
             int lowRegister = registers[0];
             byte[] highRegisterBytes = BitConverter.GetBytes(highRegister);
@@ -269,8 +269,8 @@ namespace EasyModbus
         public static ushort ConvertRegistersToUShort(int[] registers)
         {
             if (registers.Length != 1)
-                throw new ArgumentException("Input Array length invalid - Array langth must be '2'");
-            int register = registers[1];
+                throw new ArgumentException("Input Array length invalid - Array length must be '1'");
+            int register = registers[0];
             byte[] registerBytes = BitConverter.GetBytes(register);
             byte[] doubleBytes = {
                 registerBytes[0],
@@ -287,7 +287,7 @@ namespace EasyModbus
         public static Int32 ConvertRegistersToInt(int[] registers)
         {
             if (registers.Length != 2)
-                throw new ArgumentException("Input Array length invalid - Array langth must be '2'");
+                throw new ArgumentException("Input Array length invalid - Array length must be '2'");
             int highRegister = registers[1];
             int lowRegister = registers[0];
             byte[] highRegisterBytes = BitConverter.GetBytes(highRegister);
@@ -322,7 +322,7 @@ namespace EasyModbus
         {
             if (registers.Length != 2)
             {
-                throw new ArgumentException("Input Array length invalid - Array langth must be '2'");
+                throw new ArgumentException("Input Array length invalid - Array length must be '2'");
             }
 
             var highRegister = registers[1];
@@ -361,7 +361,7 @@ namespace EasyModbus
         public static Int64 ConvertRegistersToLong(int[] registers)
         {
             if (registers.Length != 4)
-                throw new ArgumentException("Input Array length invalid - Array langth must be '4'");
+                throw new ArgumentException("Input Array length invalid - Array length must be '4'");
             int highRegister = registers[3];
             int highLowRegister = registers[2];
             int lowHighRegister = registers[1];
@@ -392,7 +392,7 @@ namespace EasyModbus
         public static Int64 ConvertRegistersToLong(int[] registers, RegisterOrder registerOrder)
         {
             if (registers.Length != 4)
-                throw new ArgumentException("Input Array length invalid - Array langth must be '4'");
+                throw new ArgumentException("Input Array length invalid - Array length must be '4'");
             int[] swappedRegisters = { registers[0], registers[1], registers[2], registers[3] };
             if (registerOrder == RegisterOrder.HighLow)
                 swappedRegisters = new int[] { registers[3], registers[2], registers[1], registers[0] };
@@ -407,7 +407,7 @@ namespace EasyModbus
         public static double ConvertRegistersToDouble(int[] registers)
         {
             if (registers.Length != 4)
-                throw new ArgumentException("Input Array length invalid - Array langth must be '4'");
+                throw new ArgumentException("Input Array length invalid - Array length must be '4'");
             int highRegister = registers[3];
             int highLowRegister = registers[2];
             int lowHighRegister = registers[1];
@@ -438,7 +438,7 @@ namespace EasyModbus
         public static double ConvertRegistersToDouble(int[] registers, RegisterOrder registerOrder)
         {
             if (registers.Length != 4)
-                throw new ArgumentException("Input Array length invalid - Array langth must be '4'");
+                throw new ArgumentException("Input Array length invalid - Array length must be '4'");
             int[] swappedRegisters = { registers[0], registers[1], registers[2], registers[3] };
             if (registerOrder == RegisterOrder.HighLow)
                 swappedRegisters = new int[] { registers[3], registers[2], registers[1], registers[0] };
