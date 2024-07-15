@@ -1,27 +1,27 @@
 ﻿/*
 Copyright (c) 2018-2020 Rossmann-Engineering
-Permission is hereby granted, free of charge, 
+Permission is hereby granted, free of charge,
 to any person obtaining a copy of this software
 and associated documentation files (the "Software"),
-to deal in the Software without restriction, 
-including without limitation the rights to use, 
-copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Software, and to permit 
-persons to whom the Software is furnished to do so, 
+to deal in the Software without restriction,
+including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit
+persons to whom the Software is furnished to do so,
 subject to the following conditions:
 
-The above copyright notice and this permission 
+The above copyright notice and this permission
 notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
-ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-
+#nullable disable
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -158,7 +158,6 @@ namespace EasyModbus
         {
             lock (this)
             {
-                int i = 0;
                 bool objetExists = false;
                 foreach (Client clientLoop in tcpClientLastRequestList)
                 {
@@ -201,7 +200,7 @@ namespace EasyModbus
 
                     read = networkStream.EndRead(asyncResult);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return;
                 }
@@ -286,7 +285,6 @@ namespace EasyModbus
     {
         private bool debug = false;
         Int32 port = 502;
-        ModbusProtocol receiveData;
         ModbusProtocol sendData =  new ModbusProtocol();
         Byte[] bytes = new Byte[2100];
         //public Int16[] _holdingRegisters = new Int16[65535];
@@ -309,7 +307,6 @@ namespace EasyModbus
         private IPEndPoint iPEndPoint;
         private TCPHandler tcpHandler;
         Thread listenerThread;
-        Thread clientConnectionThread;
         private ModbusProtocol[] modbusLogData = new ModbusProtocol[100];
         public bool FunctionCode1Disabled {get; set;}
         public bool FunctionCode2Disabled { get; set; }
@@ -382,12 +379,6 @@ namespace EasyModbus
             }
             catch (Exception) { }
             listenerThread.Join();
-            try
-            {
-
-                clientConnectionThread.Abort();
-            }
-            catch (Exception) { }
         }
         
         private void ListenerThread()
@@ -461,7 +452,6 @@ namespace EasyModbus
         }
     
 		#region SerialHandler
-        private bool dataReceived = false;
         private byte[] readBuffer = new byte[2094];
         private DateTime lastReceive;
         private int nextSign = 0;
@@ -486,7 +476,6 @@ namespace EasyModbus
             if (ModbusClient.DetectValidModbusFrame(readBuffer, nextSign))
             {
                 
-                dataReceived = true;
                 nextSign= 0;
 
                     NetworkConnectionParameter networkConnectionParameter = new NetworkConnectionParameter();
@@ -494,11 +483,8 @@ namespace EasyModbus
                     ParameterizedThreadStart pts = new ParameterizedThreadStart(this.ProcessReceivedData);
                     Thread processDataThread = new Thread(pts);
                     processDataThread.Start(networkConnectionParameter);
-                    dataReceived = false;
                 
             }
-            else
-                dataReceived = false;
         }
 		#endregion
  
@@ -665,7 +651,7 @@ namespace EasyModbus
                         }
                     }
                 }
-                catch (Exception exc)
+                catch (Exception)
                 { }
                 this.CreateAnswer(receiveDataThread, sendDataThread, stream, portIn, ipAddressIn);
                 //this.sendAnswer();

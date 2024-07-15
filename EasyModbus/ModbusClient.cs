@@ -21,6 +21,7 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+#nullable disable
 using System;
 using System.Net.Sockets;
 using System.Net;
@@ -819,8 +820,6 @@ namespace EasyModbus
         private bool receiveActive = false;
         private byte[] readBuffer = new byte[256];
         private int bytesToRead = 0;
-        private int akjjjctualPositionToRead = 0;
-        DateTime dateTimeLastRead;
 /*
         private void DataReceivedHandler(object sender,
                         SerialDataReceivedEventArgs e)
