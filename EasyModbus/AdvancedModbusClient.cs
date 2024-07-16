@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EasyModbus
+﻿namespace EasyModbus
 {
     public partial class ModbusClient
     {
