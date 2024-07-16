@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectGuid>{871BD4C1-69F0-45B9-8807-1620E6A896A9}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -7,7 +7,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>EasyModbusServerSimulator</RootNamespace>
     <AssemblyName>EasyModbusServerSimulator</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -90,18 +90,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\EasyModbus\Exceptions\Exceptions.cs">
-      <Link>Exceptions\Exceptions.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyModbus\ModbusClient.cs">
-      <Link>ModbusClient.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyModbus\ModbusServer.cs">
-      <Link>ModbusServer.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyModbus\StoreLogData.cs">
-      <Link>StoreLogData.cs</Link>
-    </Compile>
     <Compile Include="Info.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +154,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="oie_ITkzMZD7tnyn.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EasyModbus\EasyModbus.csproj">
+      <Project>{d0f1c86c-169f-4dcb-b6ba-b9fd3ec3ba0b}</Project>
+      <Name>EasyModbus</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
