@@ -5,17 +5,17 @@
     <LangVersion>12.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>EasyModbusTCP</AssemblyName>
+    <AssemblyName>Raster.EasyModbusTCP</AssemblyName>
     <RootNamespace>EasyModbusTCP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>$(AssemblyName)</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Copyright>MIT</Copyright>
-    <AssemblyVersion>5.7.0.0</AssemblyVersion>
+    <AssemblyVersion>5.7.5.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
-    <RepositoryUrl>https://github.com/rossmann-engineering/EasyModbusTCP.NET</RepositoryUrl>
+    <RepositoryUrl>https://github.com/MarkDGithub/EasyModbusTCP.NET</RepositoryUrl>
     <PackageProjectUrl>$(RepositoryURL)</PackageProjectUrl>
   </PropertyGroup>
 
